@@ -1,0 +1,144 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0-SNAPSHOT,maximum-scale=1.0-SNAPSHOT,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <title>聚合支付平台 - 用户管理</title>
+  <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../css/easyui.css">
+  <link rel="stylesheet" type="text/css" href="../../css/icon.css">
+  <script type="text/javascript" src="../../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>
+  <script type="text/javascript" src="../../js/reset_win.js"></script>
+  <script type="text/javascript" src="../../js/ulmsale/ul.enums.js"></script>
+  <script type="text/javascript" src="../../js/ulmsale/ul.base.js"></script>
+  <script type="text/javascript" src="../../js/easyui-lang-zh_CN.js"></script>
+  <script src="../../js/layer/layer.js"></script>
+</head>
+
+<body>
+<h1 class="title clearfix" class="title clearfix"><span class="fl">公司管理</span> <span class="point">·</span> <span class="fl">添加</span></h1>
+<div class="formAdd">
+  <form id="commitFrom" method="post">
+    <h3 class="tit">填写公司信息<span>（*为必填项）</span></h3>
+
+    <div class="row1 clearfix">
+      <div class="list">
+        <label for="name">公司名称:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司名称" name="companyName"  data-options="prompt:'请输入公司名称.',required:true,validType:'length[3,10]'" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row2 clearfix">
+      <div class="list">
+        <label for="personegal">公司法人:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司法人姓名" name="personegal" data-options="required:true" />
+        <span>*</span>
+      </div>
+      <div class="list">
+        <label for="number">身份证号:</label>
+        <input class="easyui-validatebox" placeholder="请输入公司法人身份证号" type="text" name="number" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row2 clearfix">
+      <div class="list">
+        <label for="iphone">联系电话:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入法人联系电话" name="iphone" data-options="required:true" />
+        <span>*</span>
+      </div>
+      <div class="list">
+        <label for="license">营业证照:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司营业执照编号" name="license" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row2 clearfix">
+      <div class="list">
+        <label for="iphone">公司域名:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司域名" name="iphone" data-options="required:true" />
+        <span>*</span>
+      </div>
+      <div class="list">
+        <label for="license">机构代码:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司机构代码" name="license" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+
+    <div class="row1 clearfix">
+      <div class="list">
+        <label for="name">公司地址:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司地址" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+
+    <div class="row1 clearfix">
+      <div class="list">
+        <label for="name">备注:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入公司地址" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <h3 class="tit" style="margin-top: 20px">填写联系人信息</h3>
+    <div class="row2 clearfix">
+      <div class="list">
+        <label for="name">姓名:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入联系人姓名" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+      <div class="list">
+        <label for="name">手机号:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入联系人姓名" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row2 clearfix">
+      <div class="list">
+        <label for="name">邮箱:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入联系人邮箱" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+  </form>
+  <a style="margin:30px 0 0 180px" class="commitForm" href="javascript:;" onclick="commitFrom()">确定添加</a>
+
+</div>
+
+<script>
+
+  function commitFrom() {
+
+      console.log("sdfees")
+
+      var validate = $("#commitFrom").form('validate')
+      if (!validate) {
+          $("#commitFrom").find(".validatebox-invalid:first").focus();
+          return false
+      }
+
+      $('#commitFrom').form('submit', {
+          url:'/abc',
+          onSubmit: function(){
+              console.log('sdifi',$(this).form('validate'))
+              return $(this).form('validate');
+          },
+          success:function(data){
+              //alert(data)
+          }
+      });
+
+  }
+
+
+</script>
+
+
+
+</body>
+</html>

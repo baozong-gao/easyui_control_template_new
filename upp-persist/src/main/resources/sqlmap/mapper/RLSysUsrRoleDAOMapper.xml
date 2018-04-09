@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.company.core.mapper.RLSysUsrRoleDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.company.core.entity.RLSysUsrRoleDAO" >
+    <result column="SYS_USR_ID" property="sysUsrId" jdbcType="DECIMAL" />
+    <result column="SYS_ROLE_ID" property="sysRoleId" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SYS_USR_ID, SYS_ROLE_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.company.core.entity.RLSysUsrRoleDAOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RL_SYS_USR_ROLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.company.core.entity.RLSysUsrRoleDAOExample" >
+    delete from RL_SYS_USR_ROLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.company.core.entity.RLSysUsrRoleDAO" >
+    insert into RL_SYS_USR_ROLE (SYS_USR_ID, SYS_ROLE_ID)
+    values (#{sysUsrId,jdbcType=DECIMAL}, #{sysRoleId,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.core.entity.RLSysUsrRoleDAO" >
+    insert into RL_SYS_USR_ROLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysUsrId != null" >
+        SYS_USR_ID,
+      </if>
+      <if test="sysRoleId != null" >
+        SYS_ROLE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysUsrId != null" >
+        #{sysUsrId,jdbcType=DECIMAL},
+      </if>
+      <if test="sysRoleId != null" >
+        #{sysRoleId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.company.core.entity.RLSysUsrRoleDAOExample" resultType="java.lang.Integer" >
+    select count(*) from RL_SYS_USR_ROLE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update RL_SYS_USR_ROLE
+    <set >
+      <if test="record.sysUsrId != null" >
+        SYS_USR_ID = #{record.sysUsrId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sysRoleId != null" >
+        SYS_ROLE_ID = #{record.sysRoleId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update RL_SYS_USR_ROLE
+    set SYS_USR_ID = #{record.sysUsrId,jdbcType=DECIMAL},
+      SYS_ROLE_ID = #{record.sysRoleId,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

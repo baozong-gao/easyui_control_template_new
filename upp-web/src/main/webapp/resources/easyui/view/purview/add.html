@@ -1,0 +1,109 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0-SNAPSHOT,maximum-scale=1.0-SNAPSHOT,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <title>聚合支付平台 - 用户管理</title>
+  <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../css/easyui.css">
+  <link rel="stylesheet" type="text/css" href="../../css/icon.css">
+  <script type="text/javascript" src="../../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>
+  <script type="text/javascript" src="../../js/reset_win.js"></script>
+  <script type="text/javascript" src="../../js/ulmsale/ul.enums.js"></script>
+  <script type="text/javascript" src="../../js/ulmsale/ul.base.js"></script>
+  <script src="../../js/layer/layer.js"></script>
+</head>
+
+<body>
+<h1 class="title clearfix" class="title clearfix"><span class="fl">权限管理</span> <span class="point">·</span> <span class="fl">权限新增</span></h1>
+<div class="formAdd">
+  <form id="ff" method="post">
+
+    <h3 class="tit">填写权限信息<span>（*为必填项）</span></h3>
+    <div class="row3 clearfix">
+      <div class="list">
+        <label for="name">名称:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入角色名称" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row3 clearfix">
+      <div class="list">
+        <label for="name">父级:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入父级" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row3 clearfix">
+      <div class="list">
+        <label for="name">等级:</label>
+        <!--<input class="easyui-validatebox" type="text" placeholder="请输入等级" name="companyName" data-options="required:true" />-->
+        <select id="ccd" class="easyui-combobox" name="dept" style="width:200px;"  data-options="required:true">
+          <option value="aa">aitem1</option>
+          <option>bitem2</option>
+          <option>bitem3</option>
+          <option>ditem4</option>
+          <option>eitem5</option>
+        </select>
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row3 clearfix">
+      <div class="list">
+        <label for="name">URL:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入URL" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row3 clearfix">
+      <div class="list">
+        <label for="name">权限码:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入权限码" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row3 clearfix">
+      <div class="list">
+        <label for="name">logo:</label>
+        <input class="easyui-validatebox" type="text" placeholder="请输入权限码" name="companyName" data-options="required:true" />
+        <span>*</span>
+      </div>
+    </div>
+    <div class="row3 clearfix">
+      <div class="list btList">
+        <label for="name">角色状态:</label>
+        <input id="open" name="roleStatus" type="radio" checked />
+        <label class="bt" for="open" style="width: 67px">启用</label>
+        <input id="close" name="roleStatus" type="radio" />
+        <label class="bt" for="close" style="width: 67px">关闭</label>
+      </div>
+    </div>
+
+  </form>
+  <a style="margin:30px 0 0 100px" class="commitForm" href="javascript:;">保存</a>
+
+</div>
+
+<script>
+
+	$('#ff').form('submit', {
+		url:'/abc',
+		onSubmit: function(){
+
+		},
+		success:function(data){
+			//alert(data)
+		}
+	});
+
+</script>
+
+
+
+</body>
+</html>

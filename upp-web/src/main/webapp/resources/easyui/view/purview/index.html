@@ -1,0 +1,176 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0-SNAPSHOT,maximum-scale=1.0-SNAPSHOT,user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <title>聚合支付平台 - 用户管理</title>
+  <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../css/easyui.css">
+  <link rel="stylesheet" type="text/css" href="../../css/icon.css">
+  <script type="text/javascript" src="../../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../../js/jquery.easyui.min.js"></script>
+  <script type="text/javascript" src="../../js/reset_win.js"></script>
+  <script type="text/javascript" src="../../js/ulmsale/ul.enums.js"></script>
+  <script type="text/javascript" src="../../js/ulmsale/ul.base.js"></script>
+  <script src="../../js/layer/layer.js"></script>
+</head>
+
+<body>
+  <div class="ul-list-page">
+
+    <!-- 搜索条件 -->
+    <form id="searchForm" method="post">
+      <div id="searchPanel" class="easyui-panel">
+        <h1 class="title clearfix" class="title clearfix"><span class="fl">权限管理</span> <span class="point">·</span> <span class="fl">列表</span></h1>
+        <div class="lists clearfix">
+          <label for="">搜索条件</label>
+          <input class="w90" name="phone_no" placeholder="ID号">
+          <input class="w120" name="phone_no" placeholder="名称">
+          <input class="w120" name="phone_no" placeholder="父级ID">
+          <input class="w120" name="phone_no" placeholder="权限码">
+          <label style="width: 40px;" for="">等级：</label>
+          <select class="w90" name="" id="">
+            <option value="ddsd">选择等级</option>
+            <option value="ddsd">dsfeesd</option>
+            <option value="ddsd">dsfeesd</option>
+          </select>
+          <label style="width: 40px;" for="">状态：</label>
+          <select class="w90" name="" id="">
+            <option value="ddsd">选择状态</option>
+            <option value="ddsd">dsfeesd</option>
+            <option value="ddsd">dsfeesd</option>
+          </select>
+          <a href="javascript:void(0)" onclick="searchData()" class="search">查询</a>
+        </div>
+      </div>
+    </form>
+
+    <!-- 表操作 -->
+    <div id="toolbar">
+      <a href="#" class="add">新建</a>
+      <a href="javascript:void(0)" onclick="btnEnable()" class="edit">修改</a>
+      <a href="javascript:void(0)" onclick="del()" class="delete">删除</a>
+    </div>
+
+    <!-- 显示表数据 单元格默认居左，align:'center' 居中，align:'right' 居右 -->
+    <table id="listGrid" url="/fun/search" class="easyui-datagrid" toolbar="#toolbar" singleSelect="true"
+    pagination="true" pageList="[10,20,50,100]" pagesize="10" style="text-align: center">
+      <thead>
+      <tr>
+        <th data-options="field:'id',width:'6%',align:'center'">全选</th>
+        <th data-options="field:'id',width:'10%',align:'center'">排序</th>
+        <th data-options="field:'name',width:'10%',align:'center'">ID</th>
+        <th data-options="field:'parentId',width:'16%',align:'center'">名称</th>
+        <th data-options="field:'grade',width:'10%',align:'center'">父级ID</th>
+        <th data-options="field:'uri',width:'10%',align:'center'">等级</th>
+        <th data-options="field:'parentId',width:'16%',align:'center'">URI</th>
+        <th data-options="field:'grade',width:'16%',align:'center'">权限码</th>
+        <th data-options="field:'uri',width:'10%',align:'center'">状态</th>
+      </tr>
+      </thead>
+    </table>
+
+
+  </div>
+
+  <script>
+
+
+  //查询
+  function searchData() {
+      if ($("#searchForm").form("validate")) {
+          var queryList = getQueryParams("searchPanel");
+          $("#listGrid").datagrid("load", queryList);
+      }
+  }
+
+
+
+  //新增 - 添加数据
+  function btnAdd() {
+      $('#fromAdd').form('submit', {
+          onSubmit: function(){
+          },
+          success:function(){
+              layer.closeAll();
+              $('#listGrid').datagrid('reload');
+          }
+      });
+  }
+
+  //编辑  双击编辑数据-保存修改
+  function btnSave() {
+      $('#fromData').form('submit', {
+          onSubmit: function(params){
+              //可以对提交参数做操作
+          },
+          success: function(data){
+              var dJson = JSON.parse(data)
+              layer.closeAll();
+              if(dJson.statusCode == '200'){
+                  $('#listGrid').datagrid('reload');
+              }else{
+                  layer.msg(dJson.message, {icon: 5});
+              }
+          },
+          onLoadError:function (data) {
+              layer.msg(data.message, {icon: 5});
+          }
+      });
+
+      $('#ff').form('submit', {
+          success: function(data){
+              var data = eval('(' + data + ')'); // change the JSON string to javascript object
+              if (data.success){
+                  alert(data.message)
+              }
+          }
+      });
+
+  }
+
+  //删除  点击单行数据-点删除按钮删除
+  function del(){
+      var row = $('#listGrid').datagrid('getSelected');
+      console.log(row)
+      if(row === null){
+          layer.msg('请单击行选中数据')
+          return false;
+      }
+      layer.msg('你确定要删除吗？2', {
+          time: 0
+          ,btn: ['确定', '取消']
+          ,yes: function(index){
+              layer.close(index);
+              $.ajax({
+                  url : '/fun/delete/'+row.id,
+                  type : 'post',
+                  dataType : 'json',
+                  success : function(){
+                      $('#listGrid').datagrid('reload');
+                  },
+                  traditional : trueB
+              });
+          }
+      });
+  }
+
+  //性别格式化
+  function fmGrade(val) {
+      return sysEnums.gradeType[val];
+  }
+
+  //状态格式化
+  function fmStatus(val) {
+      return sysEnums.statusType[val];
+  }
+
+
+  </script>
+
+</body>
+</html>
