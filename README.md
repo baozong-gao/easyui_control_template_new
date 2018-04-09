@@ -1,0 +1,1 @@
+# easyui_control_template_new
